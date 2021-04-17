@@ -1,0 +1,49 @@
+﻿
+@page "/buttontest"
+@page "/buttons"
+@using FoodOrder.Client.CustomComponents.ModalComponent
+
+
+<h3>@title</h3>
+
+<div class="row">
+    <div class="btn-toolbar">
+
+        <CustomEditButtonComponent OnClick="ChangeTitle"/>
+
+        <CustomEditButtonComponent Caption="Edit Caption" Collor="danger" Icon="plus" IsSmall="false" OnClick="ShowConfirmation"></CustomEditButtonComponent>
+    
+
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    [Inject]
+    ModalManager ModalManager { get; set; }
+
+    private string title = "";
+
+    private async Task ChangeTitle()
+    {
+        //ModalParameters mParameters = new ModalParameters();
+        //mParameters.Add("Message", "Bu bir test popup denemesidir");
+        //title = "Button Title";
+        // Modal.Show<ShowMessagePupupComponent>("Counter popup page",parameters:mParameters);
+
+        await ModalManager.ShowMessageAsync("Title", "Kayıt Silindi",3000);
+    }
+
+    private async Task ShowConfirmation()
+    {
+        var res=   await ModalManager.ConfirmationPopup("Confirmation", "Kayıtlar silinecek emin misin?");
+        title = res ? "Yes click" : "No click";
+
+        if(res)
+            await ModalManager.ShowMessageAsync("Title", "Kayıt Silindi", 3000);
+    }
+
+}
