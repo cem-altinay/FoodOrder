@@ -9,7 +9,8 @@ using System.Linq;
 using Blazored.Modal;
 using FoodOrder.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-
+using FoodOrder.Application;
+using FoodOrder.Persistence;
 namespace FoodOrder.Server
 {
     public class Startup
@@ -29,6 +30,9 @@ namespace FoodOrder.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddApplicationRegistration();
+            services.AddPersistenceRegistration();
+
             services.AddDbContext<FoodOrderDbContext>(config =>
             {
                 config.UseNpgsql(Configuration.GetConnectionString("SQLServerConnection"));
@@ -36,6 +40,8 @@ namespace FoodOrder.Server
             });
 
             services.AddBlazoredModal();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
