@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FoodOrder.Server.Domain.Common;
+using FoodOrder.Domain.Common;
 
-namespace FoodOrder.Server.Domain.Entities
+namespace FoodOrder.Domain.Entities
 {
     public partial class Supplier :BaseEntity
     {

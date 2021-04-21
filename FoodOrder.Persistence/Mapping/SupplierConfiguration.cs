@@ -1,9 +1,9 @@
-﻿using System;
-using FoodOrder.Server.Domain.Entities;
+﻿
+using FoodOrder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FoodOrder.Server.Persistence.Mapping
+namespace FoodOrder.Persistence.Mapping
 {
     public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
     {

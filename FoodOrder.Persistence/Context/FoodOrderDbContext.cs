@@ -1,9 +1,9 @@
-﻿using System;
-using FoodOrder.Server.Domain.Entities;
-using FoodOrder.Server.Persistence.Mapping;
+﻿
+using FoodOrder.Domain.Entities;
+using FoodOrder.Persistence.Mapping;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodOrder.Server.Persistence.Context
+namespace FoodOrder.Persistence.Context
 {
     public class FoodOrderDbContext :DbContext
     {
@@ -23,6 +23,7 @@ namespace FoodOrder.Server.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //dotnet ef migrations add InitialCreate -p FoodOrder.Persistence/ -s Server/
             //modelBuilder.HasDefaultSchema("public");
             modelBuilder.ApplyConfiguration(new UsersConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierConfiguration());

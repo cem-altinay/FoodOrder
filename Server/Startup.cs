@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Blazored.Modal;
+using FoodOrder.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodOrder.Server
 {
@@ -26,6 +28,12 @@ namespace FoodOrder.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDbContext<FoodOrderDbContext>(config =>
+            {
+                config.UseNpgsql(Configuration.GetConnectionString("SQLServerConnection"));
+                config.EnableSensitiveDataLogging();
+            });
 
             services.AddBlazoredModal();
         }

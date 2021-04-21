@@ -1,5 +1,5 @@
 ﻿using System;
-namespace FoodOrder.Server.Domain.Common
+namespace FoodOrder.Domain.Common
 {
     public class BaseEntity
     {
@@ -9,6 +9,6 @@ namespace FoodOrder.Server.Domain.Common
 
         public Guid Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public string IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }
