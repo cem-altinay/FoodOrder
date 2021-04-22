@@ -18,7 +18,7 @@
     <ProjectReference Include="..\FoodOrder.Persistence\FoodOrder.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include=".."></ProjectReference>
+
     <ProjectReference Include="..\FoodOrder.Application\FoodOrder.Application.csproj" />
   </ItemGroup>
 

@@ -1,12 +1,11 @@
-﻿using System;
 using System.Collections.Generic;
 using FoodOrder.Domain.Common;
 
 namespace FoodOrder.Domain.Entities
 {
-    public partial class Users :BaseEntity
+    public class Users :BaseEntity
     {
-        public string FirstName { get; set; }
+          public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
 

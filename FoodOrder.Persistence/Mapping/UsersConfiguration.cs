@@ -1,13 +1,11 @@
-﻿using FoodOrder.Domain.Entities;
+using FoodOrder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FoodOrder.Persistence.Mapping
 {
-    public class UsersConfiguration: IEntityTypeConfiguration<Users>
+    public class UsersConfiguration : IEntityTypeConfiguration<Users>
     {
-       
-
         public void Configure(EntityTypeBuilder<Users> builder)
         {
             builder.ToTable("Users", "public");
@@ -36,7 +34,7 @@ namespace FoodOrder.Persistence.Mapping
                                                .HasDefaultValueSql("NOW()");
 
             builder.Property(i => i.IsActive).HasColumnName("IsActive");
-                                        
+
         }
     }
 }

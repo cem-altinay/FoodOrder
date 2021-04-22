@@ -6,9 +6,9 @@ using FoodOrder.Domain.Common;
 
 namespace FoodOrder.Application.Interfaces.Repositories
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T: BaseEntity
     {
-        // Kaynak bora kaşmer anlatımlar
+          // Kaynak bora kaşmer anlatımlar
         IQueryable<T> Table { get; }
         IQueryable<T> TableNoTracking { get; }
         T GetById(object id);

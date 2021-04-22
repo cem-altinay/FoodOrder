@@ -1,17 +1,16 @@
-﻿
 using FoodOrder.Domain.Entities;
 using FoodOrder.Persistence.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodOrder.Persistence.Context
 {
-    public class FoodOrderDbContext :DbContext
+    public class FoodOrderDbContext : DbContext
     {
-        public FoodOrderDbContext(DbContextOptions<FoodOrderDbContext> options):base(options)
+        public FoodOrderDbContext(DbContextOptions<FoodOrderDbContext> options) : base(options)
         {
         }
 
-        public virtual DbSet<Users> Users{ get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }

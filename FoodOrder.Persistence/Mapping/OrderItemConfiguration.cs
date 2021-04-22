@@ -1,4 +1,3 @@
-﻿using System;
 using FoodOrder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -7,8 +6,6 @@ namespace FoodOrder.Persistence.Mapping
 {
     public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     {
-       
-
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder.HasKey(e => e.Id)

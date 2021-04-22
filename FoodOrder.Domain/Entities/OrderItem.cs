@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using FoodOrder.Domain.Common;
 
 namespace FoodOrder.Domain.Entities
 {
-    public partial class OrderItem :BaseEntity
+    public class OrderItem: BaseEntity
     {
         public Guid CreatedUserId { get; set; }
         public Guid OrderId { get; set; }
