@@ -49,6 +49,7 @@ namespace FoodOrder.Application.Features.User.Commands
                 dbUser.IsActive=request.IsActive;
                 dbUser.LastName=request.LastName;
                 
+                //_mapper.Map(request, dbUser);
                 await _userRepository.UpdateAsync(dbUser);
 
 

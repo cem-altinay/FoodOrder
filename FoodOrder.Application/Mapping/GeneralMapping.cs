@@ -1,4 +1,7 @@
 using AutoMapper;
+using FoodOrder.Application.Features.Order.Commands;
+using FoodOrder.Application.Features.OrderItem.Commands;
+using FoodOrder.Application.Features.Supplier.Commands;
 using FoodOrder.Application.Features.User.Commands;
 using FoodOrder.Application.Utils;
 using FoodOrder.Domain.Entities;
@@ -16,6 +19,9 @@ namespace FoodOrder.Application.Mapping
             CreateMap<Supplier, SupplierDto>()
                 .ReverseMap();
 
+            CreateMap<Supplier, CreateSupplierCommand>().ReverseMap();
+            CreateMap<Supplier, UpdateSupplierCommand>().ReverseMap();
+
             CreateMap<Users, UserDto>();
 
             CreateMap<UserDto, Users>()
@@ -23,7 +29,7 @@ namespace FoodOrder.Application.Mapping
                 ;
 
             CreateMap<Users, CreateUserCommand>().ReverseMap();
-             CreateMap<Users, UpdateUserCommand>().ReverseMap();
+            CreateMap<Users, UpdateUserCommand>().ReverseMap();
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.SupplierName, y => y.MapFrom(z => z.Supplier.Name))
@@ -31,13 +37,17 @@ namespace FoodOrder.Application.Mapping
 
             CreateMap<OrderDto, Order>();
 
-
+            CreateMap<Order,CreateOrderCommand>().ReverseMap();
+            CreateMap<Order,UpdateOrderCommand>().ReverseMap();
 
             CreateMap<OrderItem, OrderItemDto>()
                 .ForMember(x => x.CreatedUserFullName, y => y.MapFrom(z => z.CreatedUser.FirstName + " " + z.CreatedUser.LastName))
                 .ForMember(x => x.OrderName, y => y.MapFrom(z => z.Order.Name ?? ""));
 
             CreateMap<OrderItemDto, OrderItem>();
+
+            CreateMap<OrderItem,CreateOrderItemCommand>().ReverseMap();
+            CreateMap<OrderItem,UpdateOrderItemCommand>().ReverseMap();
         }
     }
 }
