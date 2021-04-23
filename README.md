@@ -2,7 +2,7 @@
 <br>
 Blazor ve Onion Architecture (Sağan mimari) yapısı kullanılarak yazılmıştır. Uygulamanın amacı Blazor öğrenmek için örnek bir uygulamadır.<br>
 
-<br><br><br>
+<br>
 Kullanınan Araçlar: <br>
 <ul>
   <li>Postgresql</li>
