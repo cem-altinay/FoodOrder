@@ -11,5 +11,6 @@ Kullanılan Araçlar: <br>
   <li>MediatR</li>
   <li>CQRS</li>
   <li>JWT</li>
+  <li>Swagger</li>
  </ul>
   
