@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,43 +12,50 @@ using Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.User.Commands
 {
-    public class CreateUserCommand : IRequest<ServiceResponse<UserDto>>
+    public class UpdateUserCommand : IRequest<ServiceResponse<UserDto>>
     {
 
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
+        public bool IsActive { get; set; }
 
-        public class CreateUserCommandHandle : IRequestHandler<CreateUserCommand, ServiceResponse<UserDto>>
+
+        public class UpdateUserCommandHandle : IRequestHandler<UpdateUserCommand, ServiceResponse<UserDto>>
         {
             private readonly IMapper _mapper;
             private readonly IGenericRepository<Users> _userRepository;
-            public CreateUserCommandHandle(IMapper mapper, IGenericRepository<Users> userRepository)
+            public UpdateUserCommandHandle(IMapper mapper, IGenericRepository<Users> userRepository)
             {
                 _mapper = mapper;
                 _userRepository = userRepository;
             }
 
-            public async Task<ServiceResponse<UserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<ServiceResponse<UserDto>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var user = _mapper.Map<Domain.Entities.Users>(request);
-                if (user is null)
-                    throw new System.Exception("user not mapping");
+      
 
-                var dbUser = await _userRepository.TableNoTracking.FirstOrDefaultAsync(r => r.Email == request.Email, cancellationToken);
-                if (dbUser != null)
-                    throw new System.Exception("User already exists");
+                var dbUser = await _userRepository.GetByIdAsync(request.Id);
+                if (dbUser is null)
+                    throw new System.Exception("User not faund");
 
-                user.IsActive=true;
-                user.Password=PasswordEncrypter.Encrypt(user.Password);
+             
+                dbUser.Password = PasswordEncrypter.Encrypt(request.Password);
+                dbUser.Email=request.Email;
+                dbUser.FirstName=request.FirstName;
+                dbUser.IsActive=request.IsActive;
+                dbUser.LastName=request.LastName;
+                
+                await _userRepository.UpdateAsync(dbUser);
 
-               await _userRepository.InsertAsync(user);
 
-
-                return new ServiceResponse<UserDto>(){Value=_mapper.Map<UserDto>(user)};
+                return new ServiceResponse<UserDto>() { Value = _mapper.Map<UserDto>(dbUser) };
             }
+
+          
         }
     }
 }

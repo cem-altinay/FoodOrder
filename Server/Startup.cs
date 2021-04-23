@@ -11,6 +11,12 @@ using FoodOrder.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Application;
 using FoodOrder.Persistence;
+using Shared.Middlewares;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace FoodOrder.Server
 {
     public class Startup
@@ -41,6 +47,29 @@ namespace FoodOrder.Server
 
             services.AddBlazoredModal();
 
+            services.AddSingleton(Configuration);
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<HttpContextAccessor>();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["TokenIssuer"],
+                    ValidAudience = Configuration["TokenAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]))
+                };
+            });
 
         }
 
@@ -59,11 +88,16 @@ namespace FoodOrder.Server
                 app.UseHsts();
             }
 
+            app.UseMiddleware<ExceptionhandlingMiddleware>();
+
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

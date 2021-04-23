@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,14 +13,14 @@ using Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.User.Queries
 {
-    public class GetUsersById
+    public class GetUsers
     {
-        public class Query : IRequest<ServiceResponse<UserDto>>
+        public class Query : IRequest<ServiceResponse<List<UserDto>>>
         {
-            public Guid Id { get; set; }
+
         }
 
-        public class Handler : IRequestHandler<Query, ServiceResponse<UserDto>>
+        public class Handler : IRequestHandler<Query, ServiceResponse<List<UserDto>>>
         {
             private readonly IGenericRepository<Users> _userRepository;
             private readonly IMapper _mapper;
@@ -32,19 +31,16 @@ namespace FoodOrder.Application.Features.User.Queries
                 _mapper = mapper;
             }
 
-            public async Task<ServiceResponse<UserDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ServiceResponse<List<UserDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    var dbUser = await _userRepository.GetByIdAsync(request.Id);
-                    if (dbUser is null)
-                        throw new System.Exception("User not faund");
-
-                    var user = _mapper.Map<UserDto>(dbUser);
-
-                    return new ServiceResponse<UserDto>()
+                    var users = await _userRepository.TableNoTracking.Where(r => r.IsActive)
+                                                               .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+                                                               .ToListAsync(cancellationToken);
+                    return new ServiceResponse<List<UserDto>>()
                     {
-                        Value = user,
+                        Value = users,
                     };
                 }
                 catch (System.Exception ex)

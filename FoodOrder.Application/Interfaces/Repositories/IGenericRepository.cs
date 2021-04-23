@@ -21,5 +21,8 @@ namespace FoodOrder.Application.Interfaces.Repositories
         Task<T> GetByIdAsync(object id);
         Task InsertAsync(T entity);
         Task UpdateMatchEntityAsync(T updateEntity, T setEntity);
+
+         void Update(T entity);
+         Task UpdateAsync(T entity);
     }
 }

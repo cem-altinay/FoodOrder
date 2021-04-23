@@ -2,6 +2,9 @@ using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using FoodOrder.Application.Interfaces;
+using FoodOrder.Application.Infrastructure.Security;
+using FoodOrder.Application.Infrastructure.Users;
 
 namespace FoodOrder.Application
 {
@@ -13,6 +16,9 @@ namespace FoodOrder.Application
 
             services.AddAutoMapper(assm);
             services.AddMediatR(assm);
+
+            services.AddScoped<IJWTGenerator, JWTGenerator>();
+            services.AddScoped<IUserAccessor,UserAccessor>();
         }
     }
 }

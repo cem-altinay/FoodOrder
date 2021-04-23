@@ -138,5 +138,25 @@ namespace FoodOrder.Persistence.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public void Update(T entity)
+        {
+            if (entity is null)
+                throw new ArgumentNullException(nameof(entity));
+
+
+
+            Entities.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            if (entity is null)
+                throw new ArgumentNullException(nameof(entity));
+
+            Entities.Update(entity);
+            await _context.SaveChangesAsync();
+        }
     }
 }
