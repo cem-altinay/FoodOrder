@@ -41,6 +41,8 @@ namespace FoodOrder.Client.Utils
 
             return !result.Cancelled;
         }
+
+        
             
 
     }

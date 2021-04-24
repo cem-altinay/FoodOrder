@@ -23,6 +23,9 @@ namespace FoodOrder.Client.Pages.PageProcess
         [Inject]
         public ModalManager ModalManager { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected List<UserDto> Users;
 
 
@@ -37,9 +40,9 @@ namespace FoodOrder.Client.Pages.PageProcess
         {
             try
             {
-                var serviceResponse = await Client.GetFromJsonAsync<ServiceResponse<List<UserDto>>>("api/user/allusers");
-                if (serviceResponse.Success)
-                    Users = serviceResponse.Value;
+                //var serviceResponse = await Client.GetFromJsonAsync<ServiceResponse<List<UserDto>>>("api/user/allusers");
+                Users = await Client.GetServiceResponseAsync<List<UserDto>>("api/user/allusers", true);
+
             }
             catch (ApiException ex)
             {
@@ -52,5 +55,38 @@ namespace FoodOrder.Client.Pages.PageProcess
             }
 
         }
+
+        protected void goCreateUserPage()
+        {
+            NavigationManager.NavigateTo("/users/add");
+        }
+
+        protected void goUpdateUserPage(Guid userId)
+        {
+            NavigationManager.NavigateTo("/users/edit/" + userId);
+        }
+
+        protected async Task DeleteUser(Guid Id)
+        {
+            bool confirmed = await ModalManager.ConfirmationPopup("Confirmation", "User will be deleted. Are you sure?");
+
+            if (!confirmed) return;
+
+            try
+            {
+                bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/User/Delete", Id, true);
+
+                await LoadList();
+            }
+            catch (ApiException ex)
+            {
+                await ModalManager.ShowMessageAsync("User Deletion Error", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                await ModalManager.ShowMessageAsync("An Error", ex.Message);
+            }
+        }
+
     }
 }
