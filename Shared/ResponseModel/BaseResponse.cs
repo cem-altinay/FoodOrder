@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.ResponseModel
+namespace FoodOrder.Shared.ResponseModel
 {
     public class BaseResponse
     {

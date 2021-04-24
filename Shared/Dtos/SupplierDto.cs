@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.Dtos
+namespace FoodOrder.Shared.Dtos
 {
     public class SupplierDto
     {

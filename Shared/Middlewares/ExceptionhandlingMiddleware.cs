@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using FoodOrder.Shared.ResponseModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Shared.ResponseModel;
 
-namespace Shared.Middlewares
+namespace FoodOrder.Shared.Middlewares
 {
     public class ExceptionhandlingMiddleware
     {

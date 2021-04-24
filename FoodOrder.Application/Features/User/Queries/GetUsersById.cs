@@ -9,8 +9,8 @@ using FoodOrder.Application.Interfaces.Repositories;
 using FoodOrder.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.User.Queries
 {
@@ -34,8 +34,7 @@ namespace FoodOrder.Application.Features.User.Queries
 
             public async Task<ServiceResponse<UserDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                try
-                {
+               
                     var dbUser = await _userRepository.GetByIdAsync(request.Id);
                     if (dbUser is null)
                         throw new System.Exception("User not faund");
@@ -46,12 +45,7 @@ namespace FoodOrder.Application.Features.User.Queries
                     {
                         Value = user,
                     };
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
+               
             }
         }
     }

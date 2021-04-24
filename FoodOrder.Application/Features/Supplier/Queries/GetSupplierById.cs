@@ -9,8 +9,8 @@ using FoodOrder.Application.Interfaces.Repositories;
 using FoodOrder.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.Supplier.Queries
 {
@@ -30,8 +30,7 @@ namespace FoodOrder.Application.Features.Supplier.Queries
 
             public async Task<ServiceResponse<SupplierDto>> Handle(GetSupplierById request, CancellationToken cancellationToken)
             {
-                try
-                {
+              
                     var supplier = await _supplierRepository.GetByIdAsync(request.Id);
 
                     if (supplier is null)
@@ -42,12 +41,7 @@ namespace FoodOrder.Application.Features.Supplier.Queries
                     {
                         Value = suppliersDto,
                     };
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
+              
             }
         }
     }

@@ -16,8 +16,8 @@ namespace Server.Controllers
             return Ok(await Mediator.Send(new FoodOrder.Application.Features.User.Queries.GetUsersById.Query() { Id = id }, cancellationToken));
         }
 
-           [HttpGet("allusers")]
-        public async Task<IActionResult> GetAllusers( CancellationToken cancellationToken)
+        [HttpGet("allusers")]
+        public async Task<IActionResult> GetAllusers(CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new FoodOrder.Application.Features.User.Queries.GetUsers.Query(), cancellationToken));
         }

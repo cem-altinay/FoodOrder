@@ -4,7 +4,8 @@ using FoodOrder.Application.Interfaces.Repositories;
 using FoodOrder.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.User.Commands
 {

@@ -7,17 +7,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Blazored.Modal;
-using FoodOrder.Persistence.Context;
+
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Application;
-using FoodOrder.Persistence;
-using Shared.Middlewares;
+
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using FoodOrder.Shared.Middlewares;
+using FoodOrder.Persistence;
+using FoodOrder.Persistence.Context;
+using Blazored.LocalStorage;
 
 namespace FoodOrder.Server
 {
@@ -48,6 +52,7 @@ namespace FoodOrder.Server
             });
 
             services.AddBlazoredModal();
+            services.AddBlazoredLocalStorage();
 
             services.AddSingleton(Configuration);
 
@@ -86,7 +91,7 @@ namespace FoodOrder.Server
                         Scheme = "bearer"
                     });
 
-          c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
                     {
                         new OpenApiSecurityScheme
                         {
@@ -97,10 +102,8 @@ namespace FoodOrder.Server
                             }
                         },new List<string>()
                     }
-          });
-
-
-      });
+                });
+                });
 
         }
 

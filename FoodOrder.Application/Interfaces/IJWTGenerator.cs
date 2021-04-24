@@ -1,6 +1,6 @@
 using FoodOrder.Domain.Entities;
-using Shared.Dtos;
-
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 namespace FoodOrder.Application.Interfaces
 {
     public interface IJWTGenerator

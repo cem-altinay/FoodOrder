@@ -6,7 +6,7 @@ using System.Text;
 using FoodOrder.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Dtos;
+using FoodOrder.Shared.Dtos;
 
 namespace FoodOrder.Application.Infrastructure.Security
 {

@@ -8,8 +8,8 @@ using FoodOrder.Application.Interfaces.Repositories;
 using FoodOrder.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.User.Queries
 {
@@ -33,8 +33,7 @@ namespace FoodOrder.Application.Features.User.Queries
 
             public async Task<ServiceResponse<List<UserDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                try
-                {
+                
                     var users = await _userRepository.TableNoTracking.Where(r => r.IsActive)
                                                                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                                                                .ToListAsync(cancellationToken);
@@ -42,12 +41,7 @@ namespace FoodOrder.Application.Features.User.Queries
                     {
                         Value = users,
                     };
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
+            
             }
         }
     }

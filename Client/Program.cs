@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Blazored.Modal;
 using FoodOrder.Client.Utils;
+using Blazored.LocalStorage;
 
 namespace FoodOrder.Client
 {
@@ -23,6 +24,7 @@ namespace FoodOrder.Client
             builder.Services.AddScoped<ModalManager>();
 
             builder.Services.AddBlazoredModal();
+            builder.Services.AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
     }

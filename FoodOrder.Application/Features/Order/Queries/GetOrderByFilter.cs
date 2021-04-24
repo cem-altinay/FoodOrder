@@ -8,8 +8,8 @@ using AutoMapper.QueryableExtensions;
 using FoodOrder.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.Order.Queries
 {
@@ -35,8 +35,7 @@ namespace FoodOrder.Application.Features.Order.Queries
 
             public async Task<ServiceResponse<List<OrderDto>>> Handle(GetOrderByFilter request, CancellationToken cancellationToken)
             {
-                try
-                {
+                
                     var query = _orderRepository.TableNoTracking.Where(r => r.IsActive);
 
                     if (request.CreatedUserId != Guid.Empty)
@@ -58,12 +57,7 @@ namespace FoodOrder.Application.Features.Order.Queries
                     {
                         Value = orders,
                     };
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
+               
             }
         }
     }

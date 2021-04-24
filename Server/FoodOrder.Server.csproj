@@ -19,11 +19,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Client\FoodOrder.Client.csproj" />
     <ProjectReference Include="..\Shared\FoodOrder.Shared.csproj" />
+ 
+
+    <ProjectReference Include="..\FoodOrder.Application\FoodOrder.Application.csproj" />
     <ProjectReference Include="..\FoodOrder.Persistence\FoodOrder.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-
-    <ProjectReference Include="..\FoodOrder.Application\FoodOrder.Application.csproj" />
   </ItemGroup>
 
 

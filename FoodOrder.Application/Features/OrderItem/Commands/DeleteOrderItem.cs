@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FoodOrder.Application.Interfaces.Repositories;
 using MediatR;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.OrderItem.Commands
 {

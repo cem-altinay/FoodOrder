@@ -1,17 +1,12 @@
-﻿@page "/counter"
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
-<h1>Counter</h1>
+﻿@page "/login"
+@layout FoodOrder.Client.Shared.EmptyLayout
 
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<h3>Login</h3>
 
 @code {
-    private int currentCount = 0;
 
-    private async  Task IncrementCount()
-    {
-        currentCount++;
-      await  localStorage.SetItemAsync("counter",currentCount);
-    }
+  [Inject] HttpClient Client { get; set; }
+  private UserLoginDto userLogin = new();
+
+
 }

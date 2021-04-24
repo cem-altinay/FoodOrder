@@ -8,8 +8,8 @@ using AutoMapper.QueryableExtensions;
 using FoodOrder.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 
 namespace FoodOrder.Application.Features.OrderItem.Queries
 {
@@ -30,8 +30,7 @@ namespace FoodOrder.Application.Features.OrderItem.Queries
 
             public async Task<ServiceResponse<OrderItemDto>> Handle(GetOrderItemById request, CancellationToken cancellationToken)
             {
-                try
-                {
+                
                     var dbOrderItem = await _orderItemRepository.GetByIdAsync(request.Id);
                     if (dbOrderItem is null)
                         throw new System.Exception("order Item not faund");
@@ -40,12 +39,7 @@ namespace FoodOrder.Application.Features.OrderItem.Queries
                     {
                         Value = orderItem,
                     };
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
+              
             }
         }
     }

@@ -3,10 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FoodOrder.Application.Interfaces.Repositories;
+using FoodOrder.Shared.Dtos;
+using FoodOrder.Shared.ResponseModel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shared.Dtos;
-using Shared.ResponseModel;
+
 
 namespace FoodOrder.Application.Features.Order.Commands
 {

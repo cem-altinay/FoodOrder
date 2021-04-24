@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.CustomException
+namespace FoodOrder.Shared.CustomException
 {
     public class HttpException: Exception
     {

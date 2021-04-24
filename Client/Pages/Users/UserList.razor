@@ -1,5 +1,33 @@
-﻿<h3>Component1</h3>
+﻿@page "/userlist"
 
-@code {
+@inherits UserListProceess
 
+@if (Users != null)
+{
+    <table class="table table-hover table-sm table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">Email</th>
+                <th scope="col">Oluşturulma Tarihi</th>
+                <th scope="col">Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Users)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.CreateDate</td>
+                    <td>@item.IsActive</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else{
+        <p><em>Loading...</em></p>
 }

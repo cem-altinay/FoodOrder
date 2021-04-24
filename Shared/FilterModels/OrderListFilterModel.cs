@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared.FilterModels
+namespace FoodOrder.Shared.FilterModels
 {
     public class OrderListFilterModel
     {

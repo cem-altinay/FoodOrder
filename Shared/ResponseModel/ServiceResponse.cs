@@ -1,4 +1,4 @@
-namespace Shared.ResponseModel
+namespace FoodOrder.Shared.ResponseModel
 {
     public class ServiceResponse<T>: BaseResponse
     {
