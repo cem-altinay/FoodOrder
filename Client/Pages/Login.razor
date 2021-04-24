@@ -1,12 +1,71 @@
 ﻿@page "/login"
+
 @layout FoodOrder.Client.Shared.EmptyLayout
 
-<h3>Login</h3>
 
+<div class="container-fluid h-100">
+  <div class="row justify-content-center align-items-center h-100">
+
+    <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+      <EditForm Model="@userLoginRequest" OnValidSubmit="LoginCallback">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="form-group">
+          <label>Mail Adresi</label>
+          <input @bind-value="userLoginRequest.Email" type="email" class="form-control" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input @bind-value="userLoginRequest.Password" type="password" class="form-control" placeholder="Password">
+        </div>
+
+        <button type="submit" class="btn btn-success">Login</button>
+      </EditForm>
+    </div>
+  </div>
+</div>
 @code {
 
+
+  [Inject] ModalManager ModalManager { get; set; }
   [Inject] HttpClient Client { get; set; }
-  private UserLoginDto userLogin = new();
 
+  [Inject] NavigationManager NavigationManager { get; set; }
 
+  [Inject] ILocalStorageService LocalStorageService { get; set; }
+  [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+  private UserLoginRequestDto userLoginRequest = new();
+  private async Task LoginCallback()
+  {
+    var httpPostRequest = await Client.PostAsJsonAsync("api/user/login", userLoginRequest);
+    if (httpPostRequest.IsSuccessStatusCode)
+    {
+      try
+      {
+        var res = await httpPostRequest.Content.ReadFromJsonAsync<ServiceResponse<UserLoginDto>>();
+        if (res.Success)
+        {
+          await LocalStorageService.SetItemAsync("token", res.Value.Token);
+          await LocalStorageService.SetItemAsync("email", res.Value.User.Email);
+          await LocalStorageService.SetItemAsync("fullname", res.Value.User.FullName);
+          await LocalStorageService.SetItemAsync("userid", res.Value.User.Id.ToString());
+
+          (AuthenticationStateProvider as AuthStateProvider).NotifyUserLogin(res.Value.User.Email);
+
+          Client.DefaultRequestHeaders.Authorization= new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",res.Value.Token);
+
+          NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+          await ModalManager.ShowMessageAsync("Login Error", res.Message);
+        }
+      }
+      catch (System.Exception ex)
+      {
+        await ModalManager.ShowMessageAsync("Login Error", ex.Message);
+      }
+
+    }
+  }
 }

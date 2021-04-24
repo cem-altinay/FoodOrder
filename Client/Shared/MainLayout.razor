@@ -8,7 +8,7 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <a href="http://blazor.net" target="_blank" class="ml-md-auto">@loginStr</a>
         </div>
 
         <div class="content px-4">
@@ -16,3 +16,29 @@
         </div>
     </div>
 </div>
+
+@code
+{
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+
+    [Inject] ILocalStorageService LocalStorageService { get; set; }
+
+    [Inject] NavigationManager NavigationManager { get; set; }
+    private string loginStr = "About";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthState;
+
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            loginStr = await LocalStorageService.GetItemAsStringAsync("email");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("login");
+        }
+    }
+}

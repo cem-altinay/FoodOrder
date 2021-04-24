@@ -11,6 +11,8 @@ using Blazored.Modal;
 using FoodOrder.Client.Utils;
 using Blazored.LocalStorage;
 
+using Microsoft.AspNetCore.Components.Authorization;
+
 namespace FoodOrder.Client
 {
     public class Program
@@ -22,6 +24,9 @@ namespace FoodOrder.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<ModalManager>();
+
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider,AuthStateProvider>();
 
             builder.Services.AddBlazoredModal();
             builder.Services.AddBlazoredLocalStorage();

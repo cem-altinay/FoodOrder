@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace FoodOrder.Shared.ResponseModel
 {
@@ -6,7 +7,7 @@ namespace FoodOrder.Shared.ResponseModel
     {
         public BaseResponse()
         {
-            Success=true;
+            Success = true;
         }
 
         public bool Success { get; set; }
@@ -14,8 +15,9 @@ namespace FoodOrder.Shared.ResponseModel
 
         public void SetException(Exception ex)
         {
-            Success=false;
-            Message=ex.Message;
+            Success = false;
+            Message = ex.Message;
         }
     }
+
 }

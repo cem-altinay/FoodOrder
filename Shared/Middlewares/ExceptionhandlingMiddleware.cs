@@ -28,7 +28,7 @@ namespace FoodOrder.Shared.Middlewares
                 if(!httpContext.Response.HasStarted)
                 {
                     logger.LogError(ex,"Request Error");
-                    httpContext.Response.StatusCode=(int)StatusCodes.Status400BadRequest;
+                    httpContext.Response.StatusCode=(int)StatusCodes.Status200OK;
                     httpContext.Response.ContentType="application/json";
                     var response= new ServiceResponse<string>();
                     response.SetException(ex);
