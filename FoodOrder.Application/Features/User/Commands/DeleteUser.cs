@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.User.Commands
 {
@@ -29,7 +30,7 @@ namespace FoodOrder.Application.Features.User.Commands
 
                 var dbUser = await _userRepository.GetByIdAsync(request.Id);
                 if (dbUser is null)
-                    throw new System.Exception("User not faund");
+                    throw new ApiException("User not faund");
 
                 dbUser.IsActive=false;
 

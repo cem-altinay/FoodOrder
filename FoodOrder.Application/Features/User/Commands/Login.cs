@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.User.Commands
 {
@@ -38,10 +39,10 @@ namespace FoodOrder.Application.Features.User.Commands
                 var dbUser = await _userRepository.TableNoTracking.FirstOrDefaultAsync(r => r.Email == request.Email && r.Password == encryptedPassword, cancellationToken);
 
                 if (dbUser is null)
-                    throw new Exception("User not found or given information is wrong");
+                    throw new ApiException("User not found or given information is wrong");
 
                 if (!dbUser.IsActive)
-                    throw new Exception("User state is Passive!");
+                    throw new ApiException("User state is Passive!");
 
                 var user = _mapper.Map<UserDto>(dbUser);
                 UserLoginDto userLogin = _JWTGenerator.CreateToken(dbUser);

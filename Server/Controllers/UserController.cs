@@ -42,9 +42,9 @@ namespace Server.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(FoodOrder.Application.Features.User.Commands.DeleteUserCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete([FromBody]Guid id, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command, cancellationToken));
+            return Ok(await Mediator.Send(new FoodOrder.Application.Features.User.Commands.DeleteUserCommand() { Id=id}, cancellationToken));
         }
     }
 }

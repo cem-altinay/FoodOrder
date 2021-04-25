@@ -6,6 +6,7 @@ using FoodOrder.Application.Interfaces.Repositories;
 using MediatR;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.OrderItem.Commands
 {
@@ -28,7 +29,7 @@ namespace FoodOrder.Application.Features.OrderItem.Commands
             {
                 var dbOrderItem = await _orderItemRepository.GetByIdAsync(request.Id);
                 if (dbOrderItem == null)
-                    throw new Exception("Order item not found");
+                    throw new ApiException("Order item not found");
 
                 await _orderItemRepository.DeleteAsync(dbOrderItem);
 

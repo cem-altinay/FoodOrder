@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Order.Queries
 {
@@ -33,7 +34,7 @@ namespace FoodOrder.Application.Features.Order.Queries
                
                     var dbOrder = await _orderRepository.GetByIdAsync(request.Id);
                     if (dbOrder is null)
-                        throw new System.Exception("Order not faund");
+                        throw new ApiException("Order not faund");
 
                     var order = _mapper.Map<OrderDto>(dbOrder);
 

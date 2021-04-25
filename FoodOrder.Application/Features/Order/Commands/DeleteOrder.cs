@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Order.Commands
 {
@@ -36,14 +37,14 @@ namespace FoodOrder.Application.Features.Order.Commands
                 var order = await _orderRepository.Table.Include(inc => inc.OrderItems)
                                                               .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
                 if (order is null)
-                    throw new System.Exception("Order not found");
+                    throw new ApiException("Order not found");
 
                 if (!_userAccessor.HasPermission(order.CreatedUserId))
-                    throw new Exception("You cannot change the order unless you created");
+                    throw new ApiException("You cannot change the order unless you created");
 
                 var orderCount = order.OrderItems.Count();
                 if (orderCount > 0)
-                    throw new Exception($"There are {orderCount} sub order item for the order item you are trying to delete");
+                    throw new ApiException($"There are {orderCount} sub order item for the order item you are trying to delete");
 
                 await _orderRepository.DeleteAsync(order);
 

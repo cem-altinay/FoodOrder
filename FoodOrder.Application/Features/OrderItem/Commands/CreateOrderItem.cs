@@ -6,6 +6,7 @@ using FoodOrder.Application.Interfaces.Repositories;
 using MediatR;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.OrderItem.Commands
 {
@@ -31,7 +32,7 @@ namespace FoodOrder.Application.Features.OrderItem.Commands
             {
                 var orderItem = _mapper.Map<Domain.Entities.OrderItem>(request);
                 if (orderItem is null)
-                    throw new System.Exception("order item not mapping");
+                    throw new ApiException("order item not mapping");
 
                 await _orderItemRepository.InsertAsync(orderItem);
 

@@ -41,11 +41,11 @@ namespace FoodOrder.Application.Features.Order.Queries
                     if (request.CreatedUserId != Guid.Empty)
                         query = query.Where(i => i.CreatedUserId == request.CreatedUserId);
 
-                    if (request.CreateDateFirst.HasValue)
-                        query = query.Where(i => i.CreateDate >= request.CreateDateFirst);
+                   // if (request.CreateDateFirst.HasValue)
+                       // query = query.Where(i => i.CreateDate >= request.CreateDateFirst);
 
-                    if (request.CreateDateLast > DateTime.MinValue)
-                        query = query.Where(i => i.CreateDate <= request.CreateDateLast);
+                   // if (request.CreateDateLast > DateTime.MinValue)
+                        //query = query.Where(i => i.CreateDate <= request.CreateDateLast);
 
 
                     var orders = await query

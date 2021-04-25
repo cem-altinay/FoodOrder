@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Supplier.Commands
 {
@@ -34,7 +35,7 @@ namespace FoodOrder.Application.Features.Supplier.Commands
 
                 var dbSupplier = await _supplierRepository.GetByIdAsync(request.Id);
                 if (dbSupplier is null)
-                    throw new System.Exception("Supplier already exists");
+                    throw new ApiException("Supplier already exists");
 
                 dbSupplier.IsActive = request.IsActive;
                 dbSupplier.Name = request.Name;

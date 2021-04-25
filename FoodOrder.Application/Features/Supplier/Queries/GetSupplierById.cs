@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Supplier.Queries
 {
@@ -34,7 +35,7 @@ namespace FoodOrder.Application.Features.Supplier.Queries
                     var supplier = await _supplierRepository.GetByIdAsync(request.Id);
 
                     if (supplier is null)
-                        throw new System.Exception("Supplier not faund");
+                        throw new ApiException("Supplier not faund");
 
                     var suppliersDto = _mapper.Map<SupplierDto>(supplier);
                     return new ServiceResponse<SupplierDto>()

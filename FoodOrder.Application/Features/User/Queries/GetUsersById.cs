@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.User.Queries
 {
@@ -37,7 +38,7 @@ namespace FoodOrder.Application.Features.User.Queries
                
                     var dbUser = await _userRepository.GetByIdAsync(request.Id);
                     if (dbUser is null)
-                        throw new System.Exception("User not faund");
+                        throw new ApiException("User not faund");
 
                     var user = _mapper.Map<UserDto>(dbUser);
 

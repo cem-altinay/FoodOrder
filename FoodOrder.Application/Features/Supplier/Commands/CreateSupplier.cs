@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Supplier.Commands
 {
@@ -31,11 +32,11 @@ namespace FoodOrder.Application.Features.Supplier.Commands
             {
                 var supplier = _mapper.Map<Domain.Entities.Supplier>(request);
                 if (supplier is null)
-                    throw new System.Exception("Supplier not mapping");
+                    throw new ApiException("Supplier not mapping");
 
                 var dbSupplier = await _supplierRepository.TableNoTracking.FirstOrDefaultAsync(r => r.Name == request.Name, cancellationToken);
                 if (dbSupplier != null)
-                    throw new System.Exception("Supplier already exists");
+                    throw new ApiException("Supplier already exists");
 
                 supplier.IsActive = true;
 

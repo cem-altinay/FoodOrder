@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.User.Commands
 {
@@ -34,11 +35,11 @@ namespace FoodOrder.Application.Features.User.Commands
             {
                 var user = _mapper.Map<Domain.Entities.Users>(request);
                 if (user is null)
-                    throw new System.Exception("user not mapping");
+                    throw new ApiException("user not mapping");
 
                 var dbUser = await _userRepository.TableNoTracking.FirstOrDefaultAsync(r => r.Email == request.Email, cancellationToken);
                 if (dbUser != null)
-                    throw new System.Exception("User already exists");
+                    throw new ApiException("User already exists");
 
                 user.IsActive=true;
                 user.Password=PasswordEncrypter.Encrypt(user.Password);

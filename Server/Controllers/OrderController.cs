@@ -29,7 +29,7 @@ namespace Server.Controllers
             return Ok(await Mediator.Send(new FoodOrder.Application.Features.Order.Queries.GetOrders() { OrderDate = orderDate }, cancellationToken));
         }
 
-        [HttpGet("ordersbyfilter")]
+        [HttpPost("ordersbyfilter")]
         public async Task<IActionResult> GetOrdersByFilter(FoodOrder.Application.Features.Order.Queries.GetOrderByFilter request, CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(request, cancellationToken));
@@ -49,9 +49,9 @@ namespace Server.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(FoodOrder.Application.Features.Order.Commands.DeleteOrderCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete([FromBody] Guid id, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command, cancellationToken));
+            return Ok(await Mediator.Send(new FoodOrder.Application.Features.Order.Commands.DeleteOrderCommand { Id=id }, cancellationToken));
         }
         #endregion
 
@@ -81,9 +81,9 @@ namespace Server.Controllers
         }
 
         [HttpPost("deleteorderitem")]
-        public async Task<IActionResult> DeleteOrderItem(FoodOrder.Application.Features.OrderItem.Commands.DeleteOrderItemCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteOrderItem([FromBody] Guid id, CancellationToken cancellationToken)
         {
-            return Ok(await Mediator.Send(command, cancellationToken));
+            return Ok(await Mediator.Send(new FoodOrder.Application.Features.OrderItem.Commands.DeleteOrderItemCommand { Id=id }, cancellationToken));
         }
         #endregion
     }

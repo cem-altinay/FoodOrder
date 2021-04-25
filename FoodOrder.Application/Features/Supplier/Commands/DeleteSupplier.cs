@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Supplier.Commands
 {
@@ -35,11 +36,11 @@ namespace FoodOrder.Application.Features.Supplier.Commands
                 var dbSupplier = await _supplierRepository.Table.Include(inc => inc.Orders)
                                                           .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
                 if (dbSupplier is null)
-                    throw new System.Exception("Supplier not found");
+                    throw new ApiException("Supplier not found");
 
                 var orderCount = dbSupplier.Orders.Count();
                 if (orderCount > 0)
-                    throw new Exception($"There are {orderCount} sub order for the order you are trying to delete");
+                    throw new ApiException($"There are {orderCount} sub order for the order you are trying to delete");
 
                 await _supplierRepository.DeleteAsync(dbSupplier);
 

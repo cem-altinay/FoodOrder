@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FoodOrder.Shared.Dtos;
 using FoodOrder.Shared.ResponseModel;
+using FoodOrder.Shared.CustomException;
 
 namespace FoodOrder.Application.Features.Order.Commands
 {
@@ -38,11 +39,11 @@ namespace FoodOrder.Application.Features.Order.Commands
             {
                 var dbOrder = await _orderRepository.GetByIdAsync(request.Id);
                 if (dbOrder == null)
-                    throw new Exception("Order not found");
+                    throw new ApiException("Order not found");
 
 
                 if (!_userAccessor.HasPermission(dbOrder.CreatedUserId))
-                    throw new Exception("You cannot change the order unless you created");
+                    throw new ApiException("You cannot change the order unless you created");
 
                 _mapper.Map(request, dbOrder);
                 await _orderRepository.UpdateAsync(dbOrder);

@@ -66,7 +66,7 @@ namespace FoodOrder.Client.Pages.PageProcess
             NavigationManager.NavigateTo("/users/edit/" + userId);
         }
 
-        protected async Task DeleteUser(Guid Id)
+        protected async Task DeleteUser(Guid id)
         {
             bool confirmed = await ModalManager.ConfirmationPopup("Confirmation", "User will be deleted. Are you sure?");
 
@@ -74,7 +74,7 @@ namespace FoodOrder.Client.Pages.PageProcess
 
             try
             {
-                bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/User/Delete", Id, true);
+                bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/User/Delete", id, true);
 
                 await LoadList();
             }
