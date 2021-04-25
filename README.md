@@ -3,7 +3,8 @@
 Blazor ve Onion Architecture (Sağan mimari) yapısı kullanılarak yazılmıştır. Uygulamanın amacı Blazor öğrenmek için örnek bir uygulamadır.<br>
 
 Kaynaklar:<br>
-https://docs.microsoft.com/tr-tr/aspnet/core/blazor/?view=aspnetcore-5.0
+https://docs.microsoft.com/tr-tr/aspnet/core/blazor/?view=aspnetcore-5.0 <br>
+https://github.com/Blazored
 <br>
 
 <br>
