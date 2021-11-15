@@ -17,5 +17,6 @@ Kullanılan Araçlar: <br>
   <li>CQRS</li>
   <li>JWT</li>
   <li>Swagger</li>
+  <li>Blazored</li>
  </ul>
   
