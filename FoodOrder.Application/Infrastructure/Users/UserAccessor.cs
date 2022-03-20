@@ -18,7 +18,7 @@ namespace FoodOrder.Application.Infrastructure.Users
 
         public bool IsAdmin(Guid userId)
         {
-               return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value == "cem.altinay@outlook.com";
+               return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value == "test@mail.com";
         }
 
         public bool HasPermissionToChange(Guid userId)
